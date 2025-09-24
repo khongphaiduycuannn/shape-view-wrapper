@@ -1,0 +1,38 @@
+plugins {
+    alias(libs.plugins.kotlin.android)
+}
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+
+android {
+    namespace "com.hjq.shape"
+
+    compileSdkVersion 36
+
+    defaultConfig {
+        minSdkVersion 24
+        versionCode 1000
+        versionName "10.0"
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    android.libraryVariants.configureEach { variant ->
+        variant.outputs.configureEach { output ->
+            outputFileName = "${rootProject.name}-${android.defaultConfig.versionName}.aar"
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.13.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation libs.androidx.core.ktx
+}

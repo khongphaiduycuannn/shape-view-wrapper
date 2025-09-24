@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="#ffffff"
+    app:cardCornerRadius="40dp"
+    app:cardElevation="0dp"
+    app:rippleColor="#10000000"
+    app:strokeColor="@android:color/transparent"
+    app:strokeWidth="1dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/test_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="8dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#abcabc" />
+        <!-- Content here -->
+
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>
