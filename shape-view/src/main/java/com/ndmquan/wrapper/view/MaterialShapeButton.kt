@@ -1,5 +1,6 @@
 package com.ndmquan.wrapper.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
@@ -36,12 +37,13 @@ class MaterialShapeButton @JvmOverloads constructor(
     }
 
 
+    @SuppressLint("CustomViewStyleable")
     private fun initCardView(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs?.let {
             cardElevation = 0f
             val typedArray: TypedArray = context.obtainStyledAttributes(
                 attrs,
-                R.styleable.MaterialShapeButton,
+                R.styleable.ShapeButton,
                 defStyleAttr,
                 0
             )
