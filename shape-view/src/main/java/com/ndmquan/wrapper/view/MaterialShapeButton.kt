@@ -1,12 +1,12 @@
 package com.ndmquan.wrapper.view
 
 import android.content.Context
-import android.content.res.ColorStateList
+import android.content.res.TypedArray
 import android.util.AttributeSet
-import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.android.material.card.MaterialCardView
+import com.hjq.shape.R
 import com.hjq.shape.builder.ShapeDrawableBuilder
 import com.hjq.shape.builder.TextColorBuilder
 import com.hjq.shape.view.ShapeButton
@@ -18,24 +18,10 @@ class MaterialShapeButton @JvmOverloads constructor(
     private val shapeButton = ShapeButton(context, attrs, defStyleAttr)
 
     init {
-        cardElevation = 0f
-
-        shapeButton.apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-            )
-            isClickable = false
-            isFocusable = false
-            background = null
-        }
-
-        addView(shapeButton)
-
-        post {
-            background = shapeButton.shapeDrawableBuilder.drawable
-        }
+        initCardView(attrs, defStyleAttr)
+        initShapeButton()
     }
+
 
     val shapeDrawableBuilder: ShapeDrawableBuilder get() = shapeButton.shapeDrawableBuilder
 
@@ -47,5 +33,43 @@ class MaterialShapeButton @JvmOverloads constructor(
 
     fun setText(text: CharSequence, type: TextView.BufferType? = null) {
         shapeButton.setText(text, type)
+    }
+
+
+    private fun initCardView(attrs: AttributeSet?, defStyleAttr: Int) {
+        attrs?.let {
+            cardElevation = 0f
+            val typedArray: TypedArray = context.obtainStyledAttributes(
+                attrs,
+                R.styleable.MaterialShapeButton,
+                defStyleAttr,
+                0
+            )
+            radius = runCatching {
+                typedArray.getDimension(R.styleable.ShapeButton_shape_radius, 0f)
+            }.onFailure { ex ->
+                ex.printStackTrace()
+            }.also {
+                typedArray.recycle()
+            }.getOrDefault(0f)
+        }
+
+        post {
+            isClickable = true
+            isFocusable = true
+        }
+    }
+
+    private fun initShapeButton() {
+        shapeButton.apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
+            isClickable = false
+            isFocusable = false
+        }
+
+        addView(shapeButton)
     }
 }
