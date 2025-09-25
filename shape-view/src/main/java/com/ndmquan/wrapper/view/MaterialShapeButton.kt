@@ -27,62 +27,55 @@ class MaterialShapeButton @JvmOverloads constructor(
     }
 
 
-    private val shapeButton = ShapeButton(context, attrs, defStyleAttr)
-    private val rippleContainer = FrameLayout(context)
+    private val innerShapeButton = ShapeButton(context, attrs, defStyleAttr)
+    private val rippleEffectContainer = FrameLayout(context)
 
 
     init {
-        initCardView()
-        initShapeButton()
+        setupCardViewProperties()
+        setupButtonLayout()
     }
 
 
-    val shapeDrawableBuilder: ShapeDrawableBuilder get() = shapeButton.shapeDrawableBuilder
+    val shapeDrawableBuilder: ShapeDrawableBuilder
+        get() = innerShapeButton.shapeDrawableBuilder
 
-    val textColorBuilder: TextColorBuilder get() = shapeButton.textColorBuilder
-
+    val textColorBuilder: TextColorBuilder
+        get() = innerShapeButton.textColorBuilder
 
     fun setTextColor(color: Int) {
-        shapeButton.setTextColor(color)
+        innerShapeButton.setTextColor(color)
     }
 
     fun setText(text: CharSequence, type: TextView.BufferType? = null) {
-        shapeButton.setText(text, type)
+        innerShapeButton.setText(text, type)
     }
 
 
     @SuppressLint("CustomViewStyleable")
-    private fun initCardView() {
+    private fun setupCardViewProperties() {
         cardElevation = 0f
-        radius = getDimenValue(R.styleable.ShapeButton_shape_radius)
+        radius = extractDimensionValue(R.styleable.ShapeButton_shape_radius)
     }
 
-    private fun initShapeButton() {
-        rippleContainer.apply {
-            val shadowSize =
-                getDimenValue(R.styleable.ShapeButton_shape_shadowSize).toInt() + FIXED_OFFSET
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-            ).apply {
-                setMargins(shadowSize, shadowSize, shadowSize, shadowSize)
-            }
+    private fun setupButtonLayout() {
+        setupRippleContainer()
+        setupInnerButton()
+        addChildViews()
+    }
 
-            background = RippleDrawable(
-                rippleColor,
-                null,
-                GradientDrawable().apply {
-                    shape = GradientDrawable.RECTANGLE
-                    cornerRadius = radius + 2 * FIXED_OFFSET
-                    setColor(Color.WHITE)
-                }
-            )
-
+    private fun setupRippleContainer() {
+        rippleEffectContainer.apply {
+            val shadowOffset = calculateShadowOffset()
+            layoutParams = createContainerLayoutParams(shadowOffset)
+            background = createRippleDrawable()
             isClickable = true
             isFocusable = true
         }
+    }
 
-        shapeButton.apply {
+    private fun setupInnerButton() {
+        innerShapeButton.apply {
             layoutParams = LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT
@@ -90,26 +83,57 @@ class MaterialShapeButton @JvmOverloads constructor(
             isClickable = false
             isFocusable = false
         }
-
-        addView(shapeButton)
-        addView(rippleContainer)
     }
 
+    private fun addChildViews() {
+        addView(innerShapeButton)
+        addView(rippleEffectContainer)
+    }
+
+    private fun calculateShadowOffset(): Int {
+        return extractDimensionValue(R.styleable.ShapeButton_shape_shadowSize).toInt() + FIXED_OFFSET
+    }
+
+    private fun createContainerLayoutParams(shadowOffset: Int): LinearLayout.LayoutParams {
+        return LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        ).apply {
+            setMargins(shadowOffset, shadowOffset, shadowOffset, shadowOffset)
+        }
+    }
+
+    private fun createRippleDrawable(): RippleDrawable {
+        return RippleDrawable(
+            rippleColor,
+            null,
+            createRippleMask()
+        )
+    }
+
+    private fun createRippleMask(): GradientDrawable {
+        return GradientDrawable().apply {
+            shape = GradientDrawable.RECTANGLE
+            cornerRadius = radius + 2 * FIXED_OFFSET
+            setColor(Color.WHITE)
+        }
+    }
 
     @SuppressLint("CustomViewStyleable")
-    private fun getDimenValue(id: Int): Float {
-        val attrs = attrs ?: return 0f
+    private fun extractDimensionValue(attributeId: Int): Float {
+        val attributeSet = attrs ?: return 0f
 
         val typedArray: TypedArray = context.obtainStyledAttributes(
-            attrs,
+            attributeSet,
             R.styleable.ShapeButton,
             defStyleAttr,
             0
         )
+
         return runCatching {
-            typedArray.getDimension(id, 0f)
-        }.onFailure { ex ->
-            ex.printStackTrace()
+            typedArray.getDimension(attributeId, 0f)
+        }.onFailure { exception ->
+            exception.printStackTrace()
         }.also {
             typedArray.recycle()
         }.getOrDefault(0f)
