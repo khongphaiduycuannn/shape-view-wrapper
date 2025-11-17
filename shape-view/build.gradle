@@ -1,9 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
-
-apply plugin: 'maven-publish'
 
 android {
     namespace "com.hjq.shape"
@@ -21,6 +20,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+        }
+    }
 }
 
 dependencies {
@@ -36,17 +41,11 @@ dependencies {
     implementation("com.intuit.sdp:sdp-android:$sdpVersion")
 }
 
-tasks.register('androidSourcesJar', Jar) {
-    archiveClassifier.set('sources')
-    from android.sourceSets.main.java.srcDirs
-}
-
 afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
                 from components.release
-                artifact androidSourcesJar
             }
         }
     }
