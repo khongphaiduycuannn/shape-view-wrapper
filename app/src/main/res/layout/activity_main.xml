@@ -5,15 +5,33 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#4b6dca"
     tools:context=".MainActivity">
 
-    <TextView
+    <com.wrapper.view.RippleShapeLinearLayout
+        android:id="@+id/rippleShapeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_40sdp"
+        android:paddingVertical="@dimen/_40sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:scale_on_press="true"
+        app:shape_radiusInBottomEnd="@dimen/_20sdp"
+        app:shape_radiusInBottomStart="@dimen/_40sdp"
+        app:shape_radiusInTopEnd="@dimen/_60sdp"
+        app:shape_radiusInTopStart="@dimen/_20sdp"
+        app:shape_ripple_color="#20abcabc"
+        app:shape_solidColor="@color/black">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello world!"
+            android:textColor="@color/white" />
+    </com.wrapper.view.RippleShapeLinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

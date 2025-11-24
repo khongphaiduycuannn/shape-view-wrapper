@@ -250,21 +250,25 @@
     <declare-styleable name="RippleShapeView">
         <attr name="shape_ripple_color" />
         <attr name="shape_ripple_radius" />
+        <attr name="scale_on_press" />
     </declare-styleable>
 
     <declare-styleable name="RippleShapeFrameLayout">
         <attr name="shape_ripple_color" />
         <attr name="shape_ripple_radius" />
+        <attr name="scale_on_press" />
     </declare-styleable>
 
     <declare-styleable name="RippleShapeConstraintLayout">
         <attr name="shape_ripple_color" />
         <attr name="shape_ripple_radius" />
+        <attr name="scale_on_press" />
     </declare-styleable>
 
     <declare-styleable name="RippleShapeLinearLayout">
         <attr name="shape_ripple_color" />
         <attr name="shape_ripple_radius" />
+        <attr name="scale_on_press" />
     </declare-styleable>
 
     <declare-styleable name="RippleShapeButton">
