@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ShapeViewWrapper</string>
+    <string name="shape_button">Shape Button</string>
 </resources>

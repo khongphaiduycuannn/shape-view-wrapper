@@ -1,37 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4b6dca"
+    android:orientation="vertical"
+    android:padding="@dimen/_14sdp"
     tools:context=".MainActivity">
 
-    <com.wrapper.view.RippleShapeLinearLayout
-        android:id="@+id/rippleShapeButton"
-        android:layout_width="wrap_content"
+    <com.hjq.shape.view.ShapeButton
+        android:id="@+id/shapeButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/_40sdp"
-        android:paddingVertical="@dimen/_40sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:scale_on_press="true"
-        app:shape_radiusInBottomEnd="@dimen/_20sdp"
-        app:shape_radiusInBottomStart="@dimen/_40sdp"
-        app:shape_radiusInTopEnd="@dimen/_60sdp"
-        app:shape_radiusInTopStart="@dimen/_20sdp"
-        app:shape_ripple_color="#20abcabc"
-        app:shape_solidColor="@color/black">
+        android:gravity="center"
+        android:padding="@dimen/_20sdp"
+        android:text="@string/shape_button"
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello world!"
-            android:textColor="@color/white" />
-    </com.wrapper.view.RippleShapeLinearLayout>
+        app:shape_radius="@dimen/_12sdp"
+        app:shape_radiusInTopStart="@dimen/_12sdp"
+        app:shape_radiusInTopEnd="@dimen/_12sdp"
+        app:shape_radiusInBottomStart="@dimen/_12sdp"
+        app:shape_radiusInBottomEnd="@dimen/_12sdp"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:shape_solidColor="#abcabc"
+
+        app:shape_solidGradientStartColor="#aabbcc"
+        app:shape_solidGradientCenterColor="#abcabc"
+        app:shape_solidGradientEndColor="#cbacba"
+        app:shape_solidGradientOrientation="startToEnd"
+
+        app:shape_strokeSize="@dimen/_1sdp"
+        app:shape_strokeColor="#345345"
+        app:shape_strokeGradientStartColor="#345345"
+        app:shape_strokeGradientCenterColor="#334455"
+        app:shape_strokeGradientEndColor="#543543"
+        app:shape_strokeGradientOrientation="endToStart"
+
+        app:shape_shadowSize="@dimen/_6sdp"
+        app:shape_shadowColor="#000000"
+        app:shape_shadowOffsetX="@dimen/_4sdp"
+        app:shape_shadowOffsetY="@dimen/_4sdp"
+
+        app:shape_textColor="#567567"
+        app:shape_textStartColor="#567567"
+        app:shape_textCenterColor="#556677"
+        app:shape_textEndColor="#765765"
+        app:shape_textGradientOrientation="horizontal"
+
+        app:shape_textStrokeColor="#cdecde"
+        app:shape_textStrokeSize="@dimen/_2sdp"
+        />
+
+</LinearLayout>
