@@ -2,6 +2,13 @@
 
 Thay thế việc tạo drawable XML truyền thống bằng các thuộc tính view trực tiếp.
 
+## Mục lục
+
+- [Cài đặt](#cài-đặt)
+- [Shape View (Base)](#shape-view-base)
+- [Ripple Shape View (Extended)](#ripple-shape-view-extended)
+- [Utils & Extensions](#utils--extensions)
+
 ## Cài đặt
 ```gradle
 def version = "1.0.1"
