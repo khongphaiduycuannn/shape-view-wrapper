@@ -180,7 +180,7 @@ Thêm tiền tố `Ripple` vào các `ShapeView`:
 
 ## Ví dụ XML
 ```xml
-<com.hjq.shape.view.RippleShapeButton
+<com.wrapper.view.RippleShapeButton
     android:id="@+id/rippleButton"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
